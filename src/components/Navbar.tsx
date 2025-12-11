@@ -3,7 +3,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { ADMIN_WALLET } from '@/config/wagmi';
 import revaLogo from '@/assets/reva-logo.png';
-import { Shield, Trophy, Sparkles, Home } from 'lucide-react';
 
 export function Navbar() {
   const { address } = useAccount();
@@ -11,57 +10,52 @@ export function Navbar() {
   const isAdmin = address?.toLowerCase() === ADMIN_WALLET;
 
   const navLinks = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/quests', label: 'Quests', icon: Sparkles },
-    { path: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+    { path: '/', label: 'Home' },
+    { path: '/leaderboard', label: 'Leaderboard' },
+    { path: '/quests', label: 'Quests' },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
-      <div className="container mx-auto px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/20">
+      <div className="container mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
               src={revaLogo} 
               alt="REVA" 
-              className="h-10 w-10 transition-transform duration-300 group-hover:scale-110"
+              className="h-9 w-9 transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="text-2xl font-display font-bold text-gradient">
+            <span className="text-xl font-display font-bold text-foreground">
               REVA
             </span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map(({ path, label, icon: Icon }) => (
+          {/* Navigation Links - Center */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map(({ path, label }) => (
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-2 text-sm font-medium transition-all duration-300 hover-lift ${
+                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                   location.pathname === path
-                    ? 'text-foreground text-glow-cyan'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-layer-2 text-foreground'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-layer-2/50'
                 }`}
               >
-                <Icon className="w-4 h-4" />
                 {label}
               </Link>
             ))}
             {isAdmin && (
               <Link
                 to="/admin"
-                className={`flex items-center gap-2 text-sm font-medium transition-all duration-300 ${
+                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                   location.pathname === '/admin'
-                    ? 'text-secondary text-glow-cyan'
+                    ? 'text-secondary'
                     : 'text-secondary/70 hover:text-secondary'
                 }`}
               >
-                <Shield className="w-4 h-4" />
-                <span>Admin</span>
-                <span className="px-2 py-0.5 rounded-full bg-secondary/20 text-secondary text-[10px] font-semibold uppercase tracking-wider">
-                  Verified
-                </span>
+                Admin
               </Link>
             )}
           </div>
@@ -86,24 +80,24 @@ export function Navbar() {
                   {(() => {
                     if (!connected) {
                       return (
-                        <button onClick={openConnectModal} className="btn-neon text-sm">
+                        <button onClick={openConnectModal} className="btn-neon text-sm px-6 py-2.5">
                           Connect Wallet
                         </button>
                       );
                     }
 
                     return (
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
                         <button
                           onClick={openChainModal}
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl glass text-sm hover:bg-layer-2 transition-all duration-300"
+                          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-layer-2 text-sm hover:bg-layer-2/80 transition-all duration-300"
                         >
                           {chain.hasIcon && (
                             <div
                               style={{
                                 background: chain.iconBackground,
-                                width: 20,
-                                height: 20,
+                                width: 24,
+                                height: 24,
                                 borderRadius: 999,
                                 overflow: 'hidden',
                               }}
@@ -112,7 +106,7 @@ export function Navbar() {
                                 <img
                                   alt={chain.name ?? 'Chain icon'}
                                   src={chain.iconUrl}
-                                  style={{ width: 20, height: 20 }}
+                                  style={{ width: 24, height: 24 }}
                                 />
                               )}
                             </div>
@@ -121,8 +115,14 @@ export function Navbar() {
 
                         <button
                           onClick={openAccountModal}
-                          className="btn-neon-outline text-sm px-6"
+                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-layer-2 text-sm font-medium hover:bg-layer-2/80 transition-all duration-300"
                         >
+                          <div 
+                            className="w-6 h-6 rounded-full"
+                            style={{
+                              background: `linear-gradient(135deg, hsl(${(parseInt(account.address.slice(2, 10), 16) % 360)} 70% 50%), hsl(${(parseInt(account.address.slice(10, 18), 16) % 360)} 70% 50%))`
+                            }}
+                          />
                           {account.displayName}
                         </button>
                       </div>

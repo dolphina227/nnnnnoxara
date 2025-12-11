@@ -57,7 +57,7 @@ export function LeaderboardTable({ users, searchTerm }: LeaderboardTableProps) {
           <Crown className="w-8 h-8 text-muted-foreground" />
         </div>
         <h3 className="text-xl font-display font-bold mb-2">Be the First</h3>
-        <p className="text-muted-foreground">Be the first to join the race.</p>
+        <p className="text-muted-foreground">Join the waitlist to appear here!</p>
       </div>
     );
   }
@@ -66,11 +66,11 @@ export function LeaderboardTable({ users, searchTerm }: LeaderboardTableProps) {
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr>
-            <th className="text-left py-5 px-6 text-muted-foreground font-medium text-sm">Rank</th>
-            <th className="text-left py-5 px-6 text-muted-foreground font-medium text-sm">Wallet</th>
-            <th className="text-left py-5 px-6 text-muted-foreground font-medium text-sm">Username</th>
-            <th className="text-right py-5 px-6 text-muted-foreground font-medium text-sm">Points</th>
+          <tr className="border-b border-border/30">
+            <th className="text-left py-4 px-4 text-muted-foreground font-medium text-sm">Rank</th>
+            <th className="text-left py-4 px-4 text-muted-foreground font-medium text-sm">Wallet</th>
+            <th className="text-left py-4 px-4 text-muted-foreground font-medium text-sm">Username</th>
+            <th className="text-right py-4 px-4 text-muted-foreground font-medium text-sm">Points</th>
           </tr>
         </thead>
         <tbody>
@@ -81,45 +81,43 @@ export function LeaderboardTable({ users, searchTerm }: LeaderboardTableProps) {
             return (
               <tr
                 key={user.wallet}
-                className={`transition-all duration-270 table-row-enter ${
+                className={`border-b border-border/20 transition-colors ${
                   isCurrentUser
-                    ? 'bg-secondary/5'
+                    ? 'bg-primary/5'
                     : 'hover:bg-layer-2/50'
                 }`}
               >
-                <td className="py-5 px-6">
-                  <div className="separator-glow absolute left-0 right-0 bottom-0" />
+                <td className="py-4 px-4">
                   {getRankDisplay(index + 1)}
                 </td>
-                <td className="py-5 px-6">
+                <td className="py-4 px-4">
                   <div className="flex items-center gap-3">
-                    {/* Avatar placeholder */}
                     <div 
-                      className="w-9 h-9 rounded-full bg-gradient-primary flex items-center justify-center text-xs font-bold"
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
                       style={{
-                        background: `linear-gradient(135deg, hsl(${(parseInt(user.wallet.slice(2, 10), 16) % 360)} 70% 50%), hsl(${(parseInt(user.wallet.slice(10, 18), 16) % 360)} 70% 50%))`
+                        background: `linear-gradient(135deg, hsl(${(parseInt(user.wallet.slice(2, 10), 16) % 360)} 60% 50%), hsl(${(parseInt(user.wallet.slice(10, 18), 16) % 360)} 60% 50%))`
                       }}
                     >
                       {user.wallet.slice(2, 4).toUpperCase()}
                     </div>
                     <span className="font-mono text-sm">{shortenAddress(user.wallet)}</span>
                     {isAdmin && (
-                      <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/15 text-secondary text-xs font-semibold">
+                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-xs font-medium">
                         <Shield className="w-3 h-3" />
                         Admin
                       </span>
                     )}
                     {isCurrentUser && (
-                      <span className="px-2.5 py-1 rounded-full bg-primary/15 text-primary text-xs font-semibold">
+                      <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
                         You
                       </span>
                     )}
                   </div>
                 </td>
-                <td className="py-5 px-6">
+                <td className="py-4 px-4">
                   <span className="text-muted-foreground">@{user.twitter_username}</span>
                 </td>
-                <td className="py-5 px-6 text-right">
+                <td className="py-4 px-4 text-right">
                   <span className="font-display font-bold text-lg text-gradient">
                     {user.points.toLocaleString()}
                   </span>

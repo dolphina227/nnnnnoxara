@@ -3,26 +3,19 @@ import { Shield } from 'lucide-react';
 
 export default function Admin() {
   return (
-    <main className="min-h-screen pt-24 pb-16 noise-overlay">
+    <main className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="mb-14">
-          <div className="flex items-center gap-4 mb-5">
-            <div className="p-3 rounded-xl bg-secondary/15">
-              <Shield className="w-8 h-8 text-secondary" />
-            </div>
-            <div>
-              <h1 className="text-5xl md:text-6xl font-display font-bold">
-                <span className="text-gradient">Admin Panel</span>
-              </h1>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/15 text-secondary text-xs font-semibold uppercase tracking-wider mt-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-                Admin Verified
-              </span>
-            </div>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
+            <Shield className="w-4 h-4" />
+            Admin Verified
           </div>
-          <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
-            Manage quests, users, and monitor platform activity in real-time.
+          <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
+            <span className="text-gradient">Admin Panel</span>
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Manage quests, users, and monitor platform activity
           </p>
         </div>
 
