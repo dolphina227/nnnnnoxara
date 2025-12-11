@@ -75,10 +75,6 @@ export default function Leaderboard() {
             <span>Top 3 Ranks</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-xs">Admin</span>
-            <span>Platform Admin</span>
-          </div>
-          <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-xs">You</span>
             <span>Your Position</span>
           </div>
