@@ -9,7 +9,7 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1280px",
       },
     },
     extend: {
@@ -55,6 +55,10 @@ export default {
           purple: "hsl(var(--glow-purple))",
           cyan: "hsl(var(--glow-cyan))",
         },
+        layer: {
+          1: "hsl(var(--layer-1))",
+          2: "hsl(var(--layer-2))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -70,10 +74,17 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "22px",
+        "3xl": "28px",
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '30': '7.5rem',
       },
       keyframes: {
         "accordion-down": {
@@ -96,6 +107,14 @@ export default {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-15px) rotate(2deg)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -103,6 +122,14 @@ export default {
         "fade-in": "fade-in 0.6s ease-out forwards",
         "scale-in": "scale-in 0.4s ease-out forwards",
         "slide-in-right": "slide-in-right 0.3s ease-out",
+        "float": "float 8s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 4s ease-in-out infinite",
+      },
+      boxShadow: {
+        'glow-sm': '0 0 20px hsl(var(--neon-cyan) / 0.15)',
+        'glow-md': '0 0 40px hsl(var(--neon-cyan) / 0.2)',
+        'glow-lg': '0 0 60px hsl(var(--neon-cyan) / 0.25)',
+        'glow-purple': '0 0 40px hsl(var(--neon-purple) / 0.2)',
       },
     },
   },
