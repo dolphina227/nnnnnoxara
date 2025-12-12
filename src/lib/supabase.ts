@@ -50,11 +50,12 @@ export async function getUser(wallet: string) {
   return data;
 }
 
-export async function getAllUsers() {
+export async function getAllUsers(limit: number = 100, offset: number = 0) {
   const { data, error } = await supabase
     .from('users')
     .select('*')
-    .order('points', { ascending: false });
+    .order('points', { ascending: false })
+    .range(offset, offset + limit - 1);
   
   if (error) throw error;
   return data || [];

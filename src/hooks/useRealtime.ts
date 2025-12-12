@@ -2,18 +2,44 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Quest, getAllUsers, getQuests, getUserCount } from '@/lib/supabase';
 
+const PAGE_SIZE = 100;
+
 export function useRealtimeUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [offset, setOffset] = useState(0);
 
-  const fetchUsers = useCallback(async () => {
-    const data = await getAllUsers();
-    setUsers(data as User[]);
+  const fetchUsers = useCallback(async (reset: boolean = false) => {
+    const currentOffset = reset ? 0 : offset;
+    const data = await getAllUsers(PAGE_SIZE, currentOffset);
+    
+    if (reset) {
+      setUsers(data as User[]);
+      setOffset(PAGE_SIZE);
+    } else {
+      setUsers(prev => [...prev, ...(data as User[])]);
+      setOffset(currentOffset + PAGE_SIZE);
+    }
+    
+    setHasMore(data.length === PAGE_SIZE);
     setLoading(false);
-  }, []);
+    setLoadingMore(false);
+  }, [offset]);
+
+  const loadMore = useCallback(async () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    const data = await getAllUsers(PAGE_SIZE, offset);
+    setUsers(prev => [...prev, ...(data as User[])]);
+    setOffset(prev => prev + PAGE_SIZE);
+    setHasMore(data.length === PAGE_SIZE);
+    setLoadingMore(false);
+  }, [offset, loadingMore, hasMore]);
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(true);
 
     const channel = supabase
       .channel('users-changes')
@@ -21,7 +47,7 @@ export function useRealtimeUsers() {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'users' },
         () => {
-          fetchUsers();
+          fetchUsers(true);
         }
       )
       .subscribe();
@@ -29,9 +55,9 @@ export function useRealtimeUsers() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [fetchUsers]);
+  }, []);
 
-  return { users, loading, refetch: fetchUsers };
+  return { users, loading, loadingMore, hasMore, loadMore, refetch: () => fetchUsers(true) };
 }
 
 export function useRealtimeQuests() {

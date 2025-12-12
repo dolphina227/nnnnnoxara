@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { LeaderboardTable } from '@/components/LeaderboardTable';
 import { useRealtimeUsers } from '@/hooks/useRealtime';
-import { Trophy, Search, Users, Crown } from 'lucide-react';
+import { Trophy, Search, Users, Crown, Loader2 } from 'lucide-react';
 
 export default function Leaderboard() {
-  const { users, loading } = useRealtimeUsers();
+  const { users, loading, loadingMore, hasMore, loadMore } = useRealtimeUsers();
   const [searchTerm, setSearchTerm] = useState('');
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Infinite scroll observer
+  const lastElementRef = useCallback((node: HTMLDivElement | null) => {
+    if (loading || loadingMore) return;
+    if (observerRef.current) observerRef.current.disconnect();
+    
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore && !searchTerm) {
+        loadMore();
+      }
+    });
+    
+    if (node) observerRef.current.observe(node);
+  }, [loading, loadingMore, hasMore, loadMore, searchTerm]);
 
   return (
     <main className="min-h-screen pt-24 pb-16">
@@ -25,8 +40,8 @@ export default function Leaderboard() {
           <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-layer-1 border border-border/30">
             <Users className="w-5 h-5 text-secondary" />
             <div>
-              <p className="text-xl font-display font-bold text-gradient">{users.length}</p>
-              <p className="text-xs text-muted-foreground">Total Users</p>
+              <p className="text-xl font-display font-bold text-gradient">{users.length}+</p>
+              <p className="text-xs text-muted-foreground">Users Loaded</p>
             </div>
           </div>
           <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-layer-1 border border-border/30">
@@ -63,7 +78,26 @@ export default function Leaderboard() {
                 <p className="mt-4 text-muted-foreground">Loading leaderboard...</p>
               </div>
             ) : (
-              <LeaderboardTable users={users} searchTerm={searchTerm} />
+              <>
+                <LeaderboardTable users={users} searchTerm={searchTerm} />
+                
+                {/* Infinite scroll trigger */}
+                {!searchTerm && (
+                  <div ref={lastElementRef} className="py-4">
+                    {loadingMore && (
+                      <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span className="text-sm">Loading more...</span>
+                      </div>
+                    )}
+                    {!hasMore && users.length > 0 && (
+                      <p className="text-center text-sm text-muted-foreground/60">
+                        End of leaderboard
+                      </p>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
