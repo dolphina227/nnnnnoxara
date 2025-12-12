@@ -25,12 +25,6 @@ const Index = () => {
       {/* Hero Section - Centered */}
       <section className="container mx-auto px-6 min-h-[80vh] flex flex-col items-center justify-center text-center">
         <div className="max-w-3xl mx-auto space-y-8">
-          {/* Main Title */}
-          <h1 
-            className="text-7xl md:text-9xl font-display font-bold text-gradient animate-fade-in"
-          >
-            REVA
-          </h1>
           
           {/* Subtitle */}
           <div 
