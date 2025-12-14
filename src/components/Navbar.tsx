@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { ADMIN_WALLET } from '@/config/wagmi';
-import revaLogo from '@/assets/reva-logo.png';
+import luminosityLogo from '@/assets/luminosity-logo.png';
 
 export function Navbar() {
   const { address } = useAccount();
@@ -23,12 +23,12 @@ export function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
-              src={revaLogo} 
-              alt="REVA" 
-              className="h-9 w-9 transition-transform duration-300 group-hover:scale-110"
+              src={luminosityLogo} 
+              alt="Luminosity" 
+              className="h-10 w-10 luminosity-logo"
             />
-            <span className="text-xl font-display font-bold text-foreground">
-              REVA
+            <span className="text-xl font-display font-bold text-gradient-gold">
+              Luminosity
             </span>
           </Link>
 
@@ -38,7 +38,7 @@ export function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   location.pathname === path
                     ? 'bg-layer-2 text-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-layer-2/50'
@@ -50,10 +50,10 @@ export function Navbar() {
             {isAdmin && (
               <Link
                 to="/admin"
-                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   location.pathname === '/admin'
-                    ? 'text-secondary'
-                    : 'text-secondary/70 hover:text-secondary'
+                    ? 'text-primary'
+                    : 'text-primary/70 hover:text-primary'
                 }`}
               >
                 Admin
@@ -91,7 +91,7 @@ export function Navbar() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={openChainModal}
-                          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-layer-2 text-sm hover:bg-layer-2/80 transition-all duration-300"
+                          className="flex items-center gap-2 px-3 py-2 rounded-full bg-layer-2 text-sm hover:bg-layer-2/80 transition-all duration-300"
                         >
                           {chain.hasIcon && (
                             <div
@@ -116,7 +116,7 @@ export function Navbar() {
 
                         <button
                           onClick={openAccountModal}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-layer-2 text-sm font-medium hover:bg-layer-2/80 transition-all duration-300"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-layer-2 text-sm font-medium hover:bg-layer-2/80 transition-all duration-300"
                         >
                           <div 
                             className="w-6 h-6 rounded-full"

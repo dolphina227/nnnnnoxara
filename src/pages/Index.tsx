@@ -4,9 +4,10 @@ import { WaitlistForm } from '@/components/WaitlistForm';
 import { getUser } from '@/lib/supabase';
 import { supabase } from '@/integrations/supabase/client';
 import { Users } from 'lucide-react';
+import luminosityLogo from '@/assets/luminosity-logo.png';
 
 const Index = () => {
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const [isRegistered, setIsRegistered] = useState(false);
   const [userCount, setUserCount] = useState(0);
 
@@ -51,18 +52,40 @@ const Index = () => {
     <main className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[hsl(var(--neon-purple)/0.06)] rounded-full blur-[180px]" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[hsl(var(--neon-cyan)/0.04)] rounded-full blur-[150px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[hsl(var(--lum-gold)/0.08)] rounded-full blur-[200px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[hsl(var(--lum-purple)/0.04)] rounded-full blur-[150px]" />
       </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-md mx-auto">
+          {/* Logo */}
+          <div className="flex justify-center mb-6 animate-fade-in">
+            <div className="relative">
+              <div className="absolute inset-0 w-32 h-32 bg-[hsl(var(--lum-gold)/0.15)] rounded-full blur-[60px] animate-glow-pulse" />
+              <img 
+                src={luminosityLogo} 
+                alt="Luminosity" 
+                className="w-28 h-28 luminosity-logo relative z-10"
+              />
+            </div>
+          </div>
+
+          {/* Title */}
+          <div className="text-center mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gradient-gold mb-2">
+              Luminosity
+            </h1>
+            <p className="text-muted-foreground text-sm">
+              Join the waitlist. Complete quests. Earn points.
+            </p>
+          </div>
+
           {/* User Count Badge */}
-          <div className="flex justify-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-[hsl(var(--neon-cyan)/0.2)] bg-[hsl(var(--layer-2)/0.6)] backdrop-blur-sm">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[hsl(var(--neon-cyan)/0.15)]">
-                <Users className="w-4 h-4 text-[hsl(var(--neon-cyan))]" />
+          <div className="flex justify-center mb-8 animate-fade-in" style={{ animationDelay: '0.15s' }}>
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-[hsl(var(--lum-gold)/0.2)] bg-[hsl(var(--layer-2)/0.6)] backdrop-blur-sm">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[hsl(var(--lum-gold)/0.15)]">
+                <Users className="w-4 h-4 text-primary" />
               </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-2xl font-display font-bold text-foreground">{userCount.toLocaleString()}</span>
@@ -72,7 +95,7 @@ const Index = () => {
           </div>
 
           {/* Form */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <WaitlistForm 
               onSuccess={() => setIsRegistered(true)} 
             />
@@ -83,7 +106,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="absolute bottom-0 left-0 right-0 py-6">
         <div className="text-center text-muted-foreground/60 text-xs">
-          <p>© 2025 REVA. All rights reserved.</p>
+          <p>© 2025 Luminosity. All rights reserved.</p>
         </div>
       </footer>
     </main>
