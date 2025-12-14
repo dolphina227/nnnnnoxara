@@ -17,15 +17,15 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-[hsl(var(--lum-gold)/0.1)]">
       <div className="container mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - Static */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
               src={luminosityLogo} 
               alt="Luminosity" 
-              className="h-10 w-10 luminosity-logo"
+              className="h-10 w-10 transition-transform duration-300 group-hover:scale-105"
             />
             <span className="text-xl font-display font-bold text-gradient-gold">
               Luminosity
@@ -40,7 +40,7 @@ export function Navbar() {
                 to={path}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   location.pathname === path
-                    ? 'bg-layer-2 text-foreground'
+                    ? 'bg-[hsl(var(--lum-gold)/0.15)] text-primary border border-[hsl(var(--lum-gold)/0.3)]'
                     : 'text-muted-foreground hover:text-foreground hover:bg-layer-2/50'
                 }`}
               >
@@ -52,7 +52,7 @@ export function Navbar() {
                 to="/admin"
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   location.pathname === '/admin'
-                    ? 'text-primary'
+                    ? 'text-primary bg-[hsl(var(--lum-gold)/0.15)]'
                     : 'text-primary/70 hover:text-primary'
                 }`}
               >
@@ -81,7 +81,7 @@ export function Navbar() {
                   {(() => {
                     if (!connected) {
                       return (
-                        <button onClick={openConnectModal} className="btn-neon text-sm px-6 py-2.5">
+                        <button onClick={openConnectModal} className="btn-gold text-sm px-6 py-2.5">
                           Connect Wallet
                         </button>
                       );
@@ -91,7 +91,7 @@ export function Navbar() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={openChainModal}
-                          className="flex items-center gap-2 px-3 py-2 rounded-full bg-layer-2 text-sm hover:bg-layer-2/80 transition-all duration-300"
+                          className="flex items-center gap-2 px-3 py-2 rounded-full bg-layer-2 border border-border/30 text-sm hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
                         >
                           {chain.hasIcon && (
                             <div
@@ -116,12 +116,12 @@ export function Navbar() {
 
                         <button
                           onClick={openAccountModal}
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-layer-2 text-sm font-medium hover:bg-layer-2/80 transition-all duration-300"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-layer-2 border border-border/30 text-sm font-medium hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
                         >
                           <div 
                             className="w-6 h-6 rounded-full"
                             style={{
-                              background: `linear-gradient(135deg, hsl(${(parseInt(account.address.slice(2, 10), 16) % 360)} 70% 50%), hsl(${(parseInt(account.address.slice(10, 18), 16) % 360)} 70% 50%))`
+                              background: `linear-gradient(135deg, hsl(39 75% 65%), hsl(43 100% 77%))`
                             }}
                           />
                           {account.displayName}

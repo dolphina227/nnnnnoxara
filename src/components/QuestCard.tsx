@@ -46,14 +46,16 @@ export function QuestCard({ quest, completed, onComplete }: QuestCardProps) {
 
   return (
     <div 
-      className={`card-neon transition-all duration-300 ${
-        completed ? 'opacity-70' : ''
+      className={`rounded-2xl p-6 border transition-all duration-300 backdrop-blur-xl ${
+        completed 
+          ? 'opacity-70 bg-[hsl(var(--layer-1)/0.4)] border-border/30' 
+          : 'bg-[hsl(var(--layer-1)/0.6)] border-[hsl(var(--lum-gold)/0.15)] hover:border-[hsl(var(--lum-gold)/0.3)] shadow-card'
       }`}
     >
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 rounded-lg bg-primary/10">
+            <div className="p-2 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)]">
               <Zap className="w-4 h-4 text-primary" />
             </div>
             <h3 className="font-display font-semibold text-lg">{quest.title}</h3>
@@ -63,7 +65,7 @@ export function QuestCard({ quest, completed, onComplete }: QuestCardProps) {
           </p>
           
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm font-semibold">
+            <span className="px-3 py-1.5 rounded-full bg-[hsl(var(--lum-gold)/0.1)] border border-[hsl(var(--lum-gold)/0.2)] text-primary text-sm font-semibold">
               +{quest.reward_points} pts
             </span>
             {quest.status === 'inactive' && (
@@ -79,17 +81,19 @@ export function QuestCard({ quest, completed, onComplete }: QuestCardProps) {
             <button
               onClick={handleVisitLink}
               disabled={completed}
-              className={`btn-neon-outline text-sm px-4 py-2 flex items-center justify-center gap-2 ${
-                linkVisited && !completed ? 'border-green-500/50 text-green-400' : ''
+              className={`px-4 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all duration-300 border ${
+                linkVisited && !completed 
+                  ? 'border-[hsl(var(--lum-cyan)/0.5)] text-secondary bg-[hsl(var(--lum-cyan)/0.1)]' 
+                  : 'border-border/50 text-foreground hover:border-[hsl(var(--lum-gold)/0.3)] bg-layer-2/50'
               } ${completed ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              <ExternalLink className={`w-4 h-4 ${linkVisited && !completed ? 'text-green-400' : 'text-secondary'}`} />
+              <ExternalLink className={`w-4 h-4 ${linkVisited && !completed ? 'text-secondary' : ''}`} />
               {linkVisited && !completed ? 'Visited' : 'Visit Link'}
             </button>
           )}
           
           {completed ? (
-            <div className="px-4 py-2 rounded-xl bg-green-500/10 text-green-400 font-semibold text-sm flex items-center justify-center gap-2">
+            <div className="px-4 py-2.5 rounded-xl bg-[hsl(var(--lum-cyan)/0.1)] border border-[hsl(var(--lum-cyan)/0.3)] text-secondary font-semibold text-sm flex items-center justify-center gap-2">
               <Check className="w-4 h-4" />
               Completed
             </div>
@@ -97,7 +101,7 @@ export function QuestCard({ quest, completed, onComplete }: QuestCardProps) {
             <button
               onClick={handleComplete}
               disabled={loading || quest.status === 'inactive' || !canComplete}
-              className="btn-neon text-sm px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              className="px-4 py-2.5 rounded-xl font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-[hsl(var(--lum-gold-bright))] to-[hsl(var(--lum-gold))] text-background hover:shadow-[0_0_20px_hsl(var(--glow-gold)/0.3)] hover:-translate-y-0.5"
               title={!canComplete ? 'Visit the link first to complete this quest' : ''}
             >
               {loading ? (

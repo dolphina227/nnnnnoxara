@@ -72,7 +72,7 @@ export default function Quests() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
-            <span className="text-gradient">Quests</span>
+            <span className="text-gradient-gold">Quests</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Complete quests to earn points and climb the leaderboard
@@ -81,29 +81,29 @@ export default function Quests() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-          <div className="card-neon text-center">
-            <div className="inline-flex p-3 rounded-xl bg-primary/10 mb-3">
+          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
               <Trophy className="w-6 h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-gradient">
+            <p className="text-2xl font-display font-bold text-gradient-gold">
               {totalPoints.toLocaleString()}
             </p>
             <p className="text-muted-foreground text-sm">Your Points</p>
           </div>
-          <div className="card-neon text-center">
-            <div className="inline-flex p-3 rounded-xl bg-secondary/10 mb-3">
+          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-cyan)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-cyan)/0.15)] border border-[hsl(var(--lum-cyan)/0.2)] mb-3">
               <Target className="w-6 h-6 text-secondary" />
             </div>
-            <p className="text-2xl font-display font-bold">
+            <p className="text-2xl font-display font-bold text-secondary">
               {completedCount} / {activeQuests.length}
             </p>
             <p className="text-muted-foreground text-sm">Completed</p>
           </div>
-          <div className="card-neon text-center">
-            <div className="inline-flex p-3 rounded-xl bg-glow-purple/10 mb-3">
-              <Sparkles className="w-6 h-6 text-glow-purple" />
+          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-purple)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-purple)/0.15)] border border-[hsl(var(--lum-purple)/0.2)] mb-3">
+              <Sparkles className="w-6 h-6 text-accent" />
             </div>
-            <p className="text-2xl font-display font-bold">
+            <p className="text-2xl font-display font-bold text-accent">
               {activeQuests.length - completedCount}
             </p>
             <p className="text-muted-foreground text-sm">Available</p>
@@ -118,11 +118,11 @@ export default function Quests() {
               <p className="mt-4 text-muted-foreground">Loading quests...</p>
             </div>
           ) : activeQuests.length === 0 ? (
-            <div className="text-center py-20 card-neon">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
+            <div className="text-center py-20 rounded-2xl bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] flex items-center justify-center">
                 <Zap className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-display font-bold mb-2">No Quests Available</h3>
+              <h3 className="text-xl font-display font-bold mb-2 text-gradient-gold">No Quests Available</h3>
               <p className="text-muted-foreground">Check back later for new quests!</p>
             </div>
           ) : (
