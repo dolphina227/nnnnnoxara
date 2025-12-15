@@ -12,7 +12,6 @@ import Index from "./pages/Index";
 import Quests from "./pages/Quests";
 import Leaderboard from "./pages/Leaderboard";
 import Admin from "./pages/Admin";
-import Mine from "./pages/Mine";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,7 +37,6 @@ const App = () => (
               <Route path="/quests" element={<Quests />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/admin" element={<Admin />} />
-              <Route path="/mine" element={<Mine />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

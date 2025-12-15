@@ -90,20 +90,20 @@ export default function Quests() {
             </p>
             <p className="text-muted-foreground text-sm">Your Points</p>
           </div>
-          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-cyan)/0.15)] backdrop-blur-xl shadow-card">
-            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-cyan)/0.15)] border border-[hsl(var(--lum-cyan)/0.2)] mb-3">
-              <Target className="w-6 h-6 text-secondary" />
+          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
+              <Target className="w-6 h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-secondary">
+            <p className="text-2xl font-display font-bold text-gradient-gold">
               {completedCount} / {activeQuests.length}
             </p>
             <p className="text-muted-foreground text-sm">Completed</p>
           </div>
-          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-purple)/0.15)] backdrop-blur-xl shadow-card">
-            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-purple)/0.15)] border border-[hsl(var(--lum-purple)/0.2)] mb-3">
-              <Sparkles className="w-6 h-6 text-accent" />
+          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
+              <Sparkles className="w-6 h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-accent">
+            <p className="text-2xl font-display font-bold text-gradient-gold">
               {activeQuests.length - completedCount}
             </p>
             <p className="text-muted-foreground text-sm">Available</p>

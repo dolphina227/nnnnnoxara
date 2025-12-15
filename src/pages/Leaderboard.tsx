@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { LeaderboardTable } from '@/components/LeaderboardTable';
 import { useRealtimeUsers } from '@/hooks/useRealtime';
-import { Trophy, Search, Users, Crown, Loader2 } from 'lucide-react';
+import { Search, Crown, Loader2 } from 'lucide-react';
 
 export default function Leaderboard() {
   const { users, loading, loadingMore, hasMore, loadMore } = useRealtimeUsers();
@@ -31,28 +31,8 @@ export default function Leaderboard() {
             <span className="text-gradient-gold">Leaderboard</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real-time rankings of all Luminosity waitlist members
+            Real-time rankings of all Noxara waitlist members
           </p>
-        </div>
-
-        {/* Stats Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
-          <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-cyan)/0.15)] backdrop-blur-xl">
-            <Users className="w-5 h-5 text-secondary" />
-            <div>
-              <p className="text-xl font-display font-bold text-secondary">{users.length}+</p>
-              <p className="text-xs text-muted-foreground">Users Loaded</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl">
-            <Trophy className="w-5 h-5 text-primary" />
-            <div>
-              <p className="text-xl font-display font-bold text-gradient-gold">
-                {users[0]?.points.toLocaleString() || 0}
-              </p>
-              <p className="text-xs text-muted-foreground">Top Score</p>
-            </div>
-          </div>
         </div>
 
         {/* Search */}

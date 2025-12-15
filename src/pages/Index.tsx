@@ -5,7 +5,7 @@ import { getUser } from '@/lib/supabase';
 import { supabase } from '@/integrations/supabase/client';
 import { Users } from 'lucide-react';
 import { ParticleBackground } from '@/components/ParticleBackground';
-import luminosityLogo from '@/assets/luminosity-logo.png';
+import noxaraLogo from '@/assets/luminosity-logo.png';
 
 const Index = () => {
   const { address } = useAccount();
@@ -68,8 +68,8 @@ const Index = () => {
             <div className="relative">
               <div className="absolute inset-0 w-32 h-32 bg-[hsl(var(--lum-gold)/0.2)] rounded-full blur-[60px] animate-glow-pulse" />
               <img 
-                src={luminosityLogo} 
-                alt="Luminosity" 
+                src={noxaraLogo} 
+                alt="Noxara" 
                 className="w-28 h-28 luminosity-logo relative z-10"
               />
             </div>
@@ -78,7 +78,7 @@ const Index = () => {
           {/* Title */}
           <div className="text-center mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gradient-gold mb-2">
-              Luminosity
+              Noxara
             </h1>
             <p className="text-muted-foreground text-sm">
               Join the waitlist. Complete quests. Earn points.
@@ -110,7 +110,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="absolute bottom-0 left-0 right-0 py-6 z-10">
         <div className="text-center text-muted-foreground/60 text-xs">
-          <p>© 2025 Luminosity. All rights reserved.</p>
+          <p>© 2025 Noxara. All rights reserved.</p>
         </div>
       </footer>
     </main>

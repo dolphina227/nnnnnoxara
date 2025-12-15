@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { ADMIN_WALLET } from '@/config/wagmi';
-import luminosityLogo from '@/assets/luminosity-logo.png';
+import noxaraLogo from '@/assets/luminosity-logo.png';
 
 export function Navbar() {
   const { address } = useAccount();
@@ -13,7 +13,6 @@ export function Navbar() {
     { path: '/', label: 'Home' },
     { path: '/leaderboard', label: 'Leaderboard' },
     { path: '/quests', label: 'Quests' },
-    { path: '/mine', label: 'Mine' },
   ];
 
   return (
@@ -23,12 +22,12 @@ export function Navbar() {
           {/* Logo - Static */}
           <Link to="/" className="flex items-center gap-3 group">
             <img 
-              src={luminosityLogo} 
-              alt="Luminosity" 
+              src={noxaraLogo} 
+              alt="Noxara" 
               className="h-10 w-10 transition-transform duration-300 group-hover:scale-105"
             />
             <span className="text-xl font-display font-bold text-gradient-gold">
-              Luminosity
+              Noxara
             </span>
           </Link>
 
