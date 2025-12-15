@@ -31,7 +31,7 @@ export default function Leaderboard() {
             <span className="text-gradient-gold">Leaderboard</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real-time rankings of all Noxara waitlist members
+            Rankings of all Noxara waitlist members
           </p>
         </div>
 
