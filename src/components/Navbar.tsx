@@ -23,7 +23,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 md:px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Logo - Static */}
-          <Link to="/" className="flex items-center gap-2 md:gap-3 group">
+          <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0">
             <img 
               src={noxaraLogo} 
               alt="Noxara" 
@@ -34,7 +34,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Links - Center (Desktop) */}
+          {/* Navigation Links - Center (Desktop only) */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(({ path, label }) => (
               <Link
@@ -63,86 +63,91 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg bg-layer-2/50 border border-border/30 text-foreground"
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Right Side: Connect Button + Mobile Menu */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Connect Button */}
+            <ConnectButton.Custom>
+              {({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
+                const ready = mounted;
+                const connected = ready && account && chain;
 
-          {/* Connect Button */}
-          <ConnectButton.Custom>
-            {({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
-              const ready = mounted;
-              const connected = ready && account && chain;
+                return (
+                  <div
+                    {...(!ready && {
+                      'aria-hidden': true,
+                      style: {
+                        opacity: 0,
+                        pointerEvents: 'none',
+                        userSelect: 'none',
+                      },
+                    })}
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return (
+                          <button onClick={openConnectModal} className="btn-gold text-xs md:text-sm px-4 md:px-6 py-2 md:py-2.5">
+                            Connect
+                          </button>
+                        );
+                      }
 
-              return (
-                <div
-                  {...(!ready && {
-                    'aria-hidden': true,
-                    style: {
-                      opacity: 0,
-                      pointerEvents: 'none',
-                      userSelect: 'none',
-                    },
-                  })}
-                >
-                  {(() => {
-                    if (!connected) {
                       return (
-                        <button onClick={openConnectModal} className="btn-gold text-sm px-6 py-2.5">
-                          Connect Wallet
-                        </button>
-                      );
-                    }
+                        <div className="flex items-center gap-1 md:gap-2">
+                          <button
+                            onClick={openChainModal}
+                            className="flex items-center gap-2 p-1.5 md:px-3 md:py-2 rounded-full bg-layer-2 border border-border/30 text-sm hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
+                          >
+                            {chain.hasIcon && (
+                              <div
+                                style={{
+                                  background: chain.iconBackground,
+                                  width: 24,
+                                  height: 24,
+                                  borderRadius: 999,
+                                  overflow: 'hidden',
+                                }}
+                              >
+                                {chain.iconUrl && (
+                                  <img
+                                    alt={chain.name ?? 'Chain icon'}
+                                    src={chain.iconUrl}
+                                    style={{ width: 24, height: 24 }}
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </button>
 
-                    return (
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={openChainModal}
-                          className="flex items-center gap-2 px-3 py-2 rounded-full bg-layer-2 border border-border/30 text-sm hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
-                        >
-                          {chain.hasIcon && (
-                            <div
+                          <button
+                            onClick={openAccountModal}
+                            className="flex items-center gap-1.5 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 rounded-full bg-layer-2 border border-border/30 text-xs md:text-sm font-medium hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
+                          >
+                            <div 
+                              className="w-5 h-5 md:w-6 md:h-6 rounded-full shrink-0"
                               style={{
-                                background: chain.iconBackground,
-                                width: 24,
-                                height: 24,
-                                borderRadius: 999,
-                                overflow: 'hidden',
+                                background: `linear-gradient(135deg, hsl(39 75% 65%), hsl(43 100% 77%))`
                               }}
-                            >
-                              {chain.iconUrl && (
-                                <img
-                                  alt={chain.name ?? 'Chain icon'}
-                                  src={chain.iconUrl}
-                                  style={{ width: 24, height: 24 }}
-                                />
-                              )}
-                            </div>
-                          )}
-                        </button>
+                            />
+                            <span className="truncate max-w-[80px] md:max-w-none">
+                              {account.displayName}
+                            </span>
+                          </button>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
 
-                        <button
-                          onClick={openAccountModal}
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-layer-2 border border-border/30 text-sm font-medium hover:border-[hsl(var(--lum-gold)/0.3)] transition-all duration-300"
-                        >
-                          <div 
-                            className="w-6 h-6 rounded-full"
-                            style={{
-                              background: `linear-gradient(135deg, hsl(39 75% 65%), hsl(43 100% 77%))`
-                            }}
-                          />
-                          {account.displayName}
-                        </button>
-                      </div>
-                    );
-                  })()}
-                </div>
-              );
-            }}
-          </ConnectButton.Custom>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg bg-layer-2/50 border border-border/30 text-foreground"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 

@@ -67,46 +67,46 @@ export default function Quests() {
   const totalPoints = user?.points || 0;
 
   return (
-    <main className="min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-6">
+    <main className="min-h-screen pt-20 md:pt-24 pb-16">
+      <div className="container mx-auto px-4 md:px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
+        <div className="text-center mb-6 md:mb-12">
+          <h1 className="text-3xl md:text-6xl font-display font-bold mb-2 md:mb-4">
             <span className="text-gradient-gold">Quests</span>
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto">
             Complete quests to earn points and climb the leaderboard
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
-            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
-              <Trophy className="w-6 h-6 text-primary" />
+        {/* Stats - Compact horizontal layout on mobile */}
+        <div className="grid grid-cols-3 gap-2 md:gap-6 mb-6 md:mb-12 max-w-4xl mx-auto">
+          <div className="rounded-xl md:rounded-2xl p-3 md:p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-2 md:p-3 rounded-lg md:rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-2 md:mb-3">
+              <Trophy className="w-4 h-4 md:w-6 md:h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-gradient-gold">
+            <p className="text-lg md:text-2xl font-display font-bold text-gradient-gold">
               {totalPoints.toLocaleString()}
             </p>
-            <p className="text-muted-foreground text-sm">Your Points</p>
+            <p className="text-muted-foreground text-xs md:text-sm">Points</p>
           </div>
-          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
-            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
-              <Target className="w-6 h-6 text-primary" />
+          <div className="rounded-xl md:rounded-2xl p-3 md:p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-2 md:p-3 rounded-lg md:rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-2 md:mb-3">
+              <Target className="w-4 h-4 md:w-6 md:h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-gradient-gold">
-              {completedCount} / {activeQuests.length}
+            <p className="text-lg md:text-2xl font-display font-bold text-gradient-gold">
+              {completedCount}/{activeQuests.length}
             </p>
-            <p className="text-muted-foreground text-sm">Completed</p>
+            <p className="text-muted-foreground text-xs md:text-sm">Done</p>
           </div>
-          <div className="rounded-2xl p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
-            <div className="inline-flex p-3 rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-3">
-              <Sparkles className="w-6 h-6 text-primary" />
+          <div className="rounded-xl md:rounded-2xl p-3 md:p-6 text-center bg-[hsl(var(--layer-1)/0.6)] border border-[hsl(var(--lum-gold)/0.15)] backdrop-blur-xl shadow-card">
+            <div className="inline-flex p-2 md:p-3 rounded-lg md:rounded-xl bg-[hsl(var(--lum-gold)/0.15)] border border-[hsl(var(--lum-gold)/0.2)] mb-2 md:mb-3">
+              <Sparkles className="w-4 h-4 md:w-6 md:h-6 text-primary" />
             </div>
-            <p className="text-2xl font-display font-bold text-gradient-gold">
+            <p className="text-lg md:text-2xl font-display font-bold text-gradient-gold">
               {activeQuests.length - completedCount}
             </p>
-            <p className="text-muted-foreground text-sm">Available</p>
+            <p className="text-muted-foreground text-xs md:text-sm">Left</p>
           </div>
         </div>
 
