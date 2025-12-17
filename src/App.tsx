@@ -32,17 +32,17 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
-            {/* Global Background */}
-            <ParticleBackground />
-            <div className="absolute inset-0 pointer-events-none z-[1]">
-              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[hsl(var(--lum-gold)/0.08)] rounded-full blur-[200px]" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[hsl(var(--lum-purple)/0.04)] rounded-full blur-[150px]" />
-            </div>
-            
-            <div className="relative min-h-screen flex flex-col z-10">
-              <Navbar />
-              <div className="flex-1">
+            <BrowserRouter>
+              {/* Global Background */}
+              <ParticleBackground />
+              <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[min(600px,100%)] h-[600px] bg-[hsl(var(--lum-gold)/0.08)] rounded-full blur-[200px]" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[min(800px,100%)] h-[400px] bg-[hsl(var(--lum-purple)/0.04)] rounded-full blur-[150px]" />
+              </div>
+              
+              <div className="relative min-h-screen flex flex-col z-10 overflow-x-hidden">
+                <Navbar />
+                <div className="flex-1">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/quests" element={<Quests />} />

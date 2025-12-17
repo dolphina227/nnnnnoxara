@@ -1,0 +1,57 @@
+/* Mobile layout lock: prevent horizontal scrolling and viewport overflow */
+
+/* Global box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  /* Avoid diagonal/horizontal panning on touch devices */
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Media/content should never force horizontal overflow */
+img,
+video,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+/* Mobile-only normalization */
+@media (max-width: 768px) {
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
+
+  /* Normalize container padding across pages on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

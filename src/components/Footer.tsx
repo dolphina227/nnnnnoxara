@@ -2,14 +2,14 @@ import { Twitter, MessageCircle, Send } from 'lucide-react';
 
 export function Footer() {
   const socialLinks = [
-    { icon: Twitter, href: 'https://x.com/noxara_app', label: 'Twitter' },
-    { icon: MessageCircle, href: 'https://t.me/noxara_chat', label: 'Telegram chat' },
-    { icon: Send, href: 'https://t.me/noxara_app', label: 'Telegram Chanell' },
+    { icon: Twitter, href: 'https://twitter.com/noxara', label: 'Twitter' },
+    { icon: MessageCircle, href: 'https://discord.gg/noxara', label: 'Discord' },
+    { icon: Send, href: 'https://t.me/noxara', label: 'Telegram' },
   ];
 
   return (
     <footer className="relative z-10 py-8 border-t border-[hsl(var(--lum-gold)/0.1)]">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center gap-4">
           {/* Social Links */}
           <div className="flex items-center gap-4">

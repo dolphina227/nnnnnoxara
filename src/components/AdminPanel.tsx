@@ -271,41 +271,74 @@ export function AdminPanel() {
       {/* User Management */}
       <div className="card-neon">
         <h2 className="text-xl font-display font-bold mb-6">User Management</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border/30">
-                <th className="text-left py-3 px-4 text-muted-foreground text-sm">Wallet</th>
-                <th className="text-left py-3 px-4 text-muted-foreground text-sm">Twitter</th>
-                <th className="text-right py-3 px-4 text-muted-foreground text-sm">Points</th>
-                <th className="text-right py-3 px-4 text-muted-foreground text-sm">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.slice(0, 50).map((user) => (
-                <tr key={user.wallet} className="border-b border-border/20 hover:bg-layer-2/30">
-                  <td className="py-3 px-4 font-mono text-sm">
-                    {user.wallet.slice(0, 8)}...{user.wallet.slice(-6)}
-                  </td>
-                  <td className="py-3 px-4 text-muted-foreground">@{user.twitter_username}</td>
-                  <td className="py-3 px-4 text-right font-bold text-gradient">{user.points.toLocaleString()}</td>
-                  <td className="py-3 px-4 text-right">
+
+        <div className="w-full">
+          {/* Mobile: vertical list (no horizontal scroll) */}
+          <div className="md:hidden divide-y divide-border/20">
+            {users.slice(0, 50).map((user) => (
+              <article key={user.wallet} className="py-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="font-mono text-sm truncate">
+                      {user.wallet.slice(0, 8)}...{user.wallet.slice(-6)}
+                    </div>
+                    <div className="text-sm text-muted-foreground truncate">@{user.twitter_username}</div>
+                  </div>
+
+                  <div className="text-right shrink-0">
+                    <div className="font-bold text-gradient">{user.points.toLocaleString()}</div>
                     <button
                       onClick={() => handleUpdatePoints(user.wallet, user.points)}
-                      className="text-sm text-secondary hover:underline"
+                      className="mt-1 text-xs text-secondary hover:underline"
                     >
                       Edit
                     </button>
-                  </td>
+                  </div>
+                </div>
+              </article>
+            ))}
+
+            {users.length === 0 && (
+              <div className="text-center py-8 text-muted-foreground">No users registered yet.</div>
+            )}
+          </div>
+
+          {/* Desktop: table */}
+          <div className="hidden md:block">
+            <table className="w-full table-fixed">
+              <thead>
+                <tr className="border-b border-border/30">
+                  <th className="text-left py-3 px-4 text-muted-foreground text-sm">Wallet</th>
+                  <th className="text-left py-3 px-4 text-muted-foreground text-sm">Twitter</th>
+                  <th className="text-right py-3 px-4 text-muted-foreground text-sm">Points</th>
+                  <th className="text-right py-3 px-4 text-muted-foreground text-sm">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {users.length === 0 && (
-            <div className="text-center py-8 text-muted-foreground">
-              No users registered yet.
-            </div>
-          )}
+              </thead>
+              <tbody>
+                {users.slice(0, 50).map((user) => (
+                  <tr key={user.wallet} className="border-b border-border/20 hover:bg-layer-2/30">
+                    <td className="py-3 px-4 font-mono text-sm truncate">
+                      {user.wallet.slice(0, 8)}...{user.wallet.slice(-6)}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground truncate">@{user.twitter_username}</td>
+                    <td className="py-3 px-4 text-right font-bold text-gradient">{user.points.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right">
+                      <button
+                        onClick={() => handleUpdatePoints(user.wallet, user.points)}
+                        className="text-sm text-secondary hover:underline"
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {users.length === 0 && (
+              <div className="text-center py-8 text-muted-foreground">No users registered yet.</div>
+            )}
+          </div>
         </div>
       </div>
     </div>
