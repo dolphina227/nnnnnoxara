@@ -2,9 +2,9 @@ import { Twitter, MessageCircle, Send } from 'lucide-react';
 
 export function Footer() {
   const socialLinks = [
-    { icon: Twitter, href: 'https://twitter.com/noxara', label: 'Twitter' },
-    { icon: MessageCircle, href: 'https://discord.gg/noxara', label: 'Discord' },
-    { icon: Send, href: 'https://t.me/noxara', label: 'Telegram' },
+    { icon: Twitter, href: 'https://x.com/noxara_app', label: 'x.com' },
+    { icon: MessageCircle, href: 'https://discord.gg/noxara', label: 'Telegram Group' },
+    { icon: Send, href: 'https://t.me/noxara_app', label: 'Telegram Chanell' },
   ];
 
   return (
