@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { WaitlistForm } from '@/components/WaitlistForm';
+import { ReferralSection } from '@/components/ReferralSection';
 import { getUser } from '@/lib/supabase';
 import { supabase } from '@/integrations/supabase/client';
-import { Users } from 'lucide-react';
+import { Users, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import noxaraLogo from '@/assets/luminosity-logo.png';
 
 const Index = () => {
   const { address } = useAccount();
   const [isRegistered, setIsRegistered] = useState(false);
   const [userCount, setUserCount] = useState(0);
+  const [checkingRegistration, setCheckingRegistration] = useState(true);
 
   useEffect(() => {
     const checkRegistration = async () => {
       if (address) {
         const user = await getUser(address);
         setIsRegistered(!!user);
+      } else {
+        setIsRegistered(false);
       }
+      setCheckingRegistration(false);
     };
     checkRegistration();
   }, [address]);
@@ -71,7 +77,7 @@ const Index = () => {
               Noxara
             </h1>
             <p className="text-muted-foreground text-xs sm:text-sm px-4">
-              Join the waitlist. Complete quests. Earn points.
+              Building access tiers, NFT-based utilities, and gated participation for early contributors.
             </p>
           </div>
 
@@ -88,11 +94,25 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Form */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <WaitlistForm 
-              onSuccess={() => setIsRegistered(true)} 
-            />
+          {/* Form or Referral Section */}
+          <div className="animate-fade-in space-y-6" style={{ animationDelay: '0.2s' }}>
+            {!checkingRegistration && isRegistered && address ? (
+              <>
+                <ReferralSection />
+                <div className="text-center">
+                  <Link 
+                    to="/quests"
+                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all text-sm sm:text-base"
+                  >
+                    Complete Quests to Earn More <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <WaitlistForm 
+                onSuccess={() => setIsRegistered(true)} 
+              />
+            )}
           </div>
         </div>
       </div>

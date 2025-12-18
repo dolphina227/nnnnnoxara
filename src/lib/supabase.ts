@@ -27,8 +27,25 @@ export type CompletedQuest = {
   completed_at: string;
 };
 
+export type ReferralCode = {
+  id: string;
+  wallet: string;
+  code: string;
+  uses_count: number;
+  created_at: string;
+};
+
+export type Referral = {
+  id: string;
+  referrer_wallet: string;
+  referred_wallet: string;
+  referral_code: string;
+  points_awarded: number;
+  created_at: string;
+};
+
 // User functions
-export async function registerUser(wallet: string, email: string, twitter_username: string) {
+export async function registerUser(wallet: string, email: string, twitter_username: string, referralCode?: string) {
   const { data, error } = await supabase
     .from('users')
     .insert([{ wallet, email, twitter_username, points: 10000 }])
@@ -36,6 +53,12 @@ export async function registerUser(wallet: string, email: string, twitter_userna
     .single();
   
   if (error) throw error;
+  
+  // Process referral if code provided
+  if (referralCode && data) {
+    await processReferral(referralCode, wallet);
+  }
+  
   return data;
 }
 
@@ -129,14 +152,12 @@ export async function deleteQuest(quest_id: string) {
 
 // Completed quests functions
 export async function completeQuest(wallet: string, quest_id: string, reward_points: number) {
-  // First complete the quest
   const { error: completeError } = await supabase
     .from('completed_quests')
     .insert([{ wallet, quest_id }]);
   
   if (completeError) throw completeError;
   
-  // Then update user points
   const user = await getUser(wallet);
   if (user) {
     await updateUserPoints(wallet, user.points + reward_points);
@@ -160,4 +181,63 @@ export async function getUserCount() {
   
   if (error) throw error;
   return count || 0;
+}
+
+// Referral functions
+export async function getUserReferralCodes(wallet: string): Promise<ReferralCode[]> {
+  const { data, error } = await supabase
+    .from('referral_codes')
+    .select('*')
+    .eq('wallet', wallet)
+    .order('created_at', { ascending: true });
+  
+  if (error) throw error;
+  return (data as ReferralCode[]) || [];
+}
+
+export async function getUserReferrals(wallet: string): Promise<Referral[]> {
+  const { data, error } = await supabase
+    .from('referrals')
+    .select('*')
+    .eq('referrer_wallet', wallet)
+    .order('created_at', { ascending: false });
+  
+  if (error) throw error;
+  return (data as Referral[]) || [];
+}
+
+export async function getReferralStats(wallet: string) {
+  const referrals = await getUserReferrals(wallet);
+  const totalReferrals = referrals.length;
+  const totalPointsEarned = referrals.reduce((sum, r) => sum + r.points_awarded, 0);
+  
+  return {
+    totalReferrals,
+    totalPointsEarned
+  };
+}
+
+export async function validateReferralCode(code: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('referral_codes')
+    .select('code')
+    .eq('code', code.toUpperCase())
+    .maybeSingle();
+  
+  if (error) return false;
+  return !!data;
+}
+
+export async function processReferral(code: string, referredWallet: string): Promise<boolean> {
+  const { data, error } = await supabase.rpc('process_referral', {
+    p_referral_code: code.toUpperCase(),
+    p_referred_wallet: referredWallet
+  });
+  
+  if (error) {
+    console.error('Referral processing error:', error);
+    return false;
+  }
+  
+  return data === true;
 }
